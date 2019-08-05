@@ -33,6 +33,29 @@
             container: 'map',
             style: 'mapbox://styles/mapbox/light-v10'
         });
+
+        map.on('load',
+            () => {
+                map.addSource("airports",
+                    {
+                        type: "geojson",
+                        data: "?handler=airports"
+                    });
+
+                map.addLayer({
+                    id: 'airport',
+                    type: 'circle',
+                    source: 'airports',
+                    filter: ['!has', 'point_count'],
+                    paint: {
+                        'circle-color': '#1EF008',
+                        'circle-radius': 6,
+                        'circle-stroke-width': 1,
+                        'circle-stroke-color': '#fff'
+                    }
+                });
+            });
+
     </script>
 </body>
 </html>
